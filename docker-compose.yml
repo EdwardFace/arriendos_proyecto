@@ -1,0 +1,17 @@
+
+
+services:
+  database:
+    container_name: db_arriendos_mysql
+    restart: always
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: admin1
+      MYSQL_DATABASE: db_arriendos
+      MYSQL_PASSWORD: admin1
+    ports:
+      - 3306:3306
+    volumes:
+      - arriendos_vl:/var/lib/mysql
+volumes:
+  arriendos_vl:
