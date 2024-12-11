@@ -4,7 +4,11 @@ spring:
     url: jdbc:mysql://localhost:3306/db_arriendos?currentSchema=true
     username: edward
     password: admin
+    driver-class: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+server:
+  servlet:
+    context-path: /edward/arriendos
