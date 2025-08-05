@@ -22,24 +22,29 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public Cliente obtenerClientePorId(int id) {
-        Optional<Cliente> clienteOptional = clienteRepository.findById(id);
+    public Cliente obtenerClientePorEmail(String email) {
+        Optional<Cliente> clienteOptional = clienteRepository.findByEmail(email);
         return clienteOptional.orElse(null);
     }
 
     @Override
     public String crearCliente(ClienteDtoRequest request) {
-        Cliente clienteNuevo = Cliente.builder()
-                .nombre(request.getNombre())
-                .email(request.getEmail())
-                .telefono(request.getTelefono())
-                .build();
-        try {
-            clienteRepository.saveAndFlush(clienteNuevo);
-            return Constantes.mensajeCliCrearExito;
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        Optional<Cliente> existClient = Optional.of(obtenerClientePorEmail(request.getEmail()));
+        if(existClient.get() != null){
+            Cliente clienteNuevo = Cliente.builder()
+                    .nombre(request.getNombre())
+                    .email(request.getEmail())
+                    .telefono(request.getTelefono())
+                    .build();
+            try {
+                clienteRepository.saveAndFlush(clienteNuevo);
+                return Constantes.mensajeCliCrearExito;
+            }catch (Exception e){
+                throw new RuntimeException(e);
+            }
         }
+        return Constantes.mensajeCliYaExiste;
+
     }
 
     @Override

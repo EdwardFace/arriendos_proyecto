@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ClienteService {
     List<Cliente> obtenerClientes();
-    Cliente obtenerClientePorId(int id);
+    Cliente obtenerClientePorEmail(String email);
     String crearCliente(ClienteDtoRequest request);
     String actualizarDatosCliente(int id,ClienteDtoRequest request);
     String eliminarClientePorId(int id);

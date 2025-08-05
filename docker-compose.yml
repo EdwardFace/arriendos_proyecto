@@ -1,20 +1,17 @@
-
-version: '3.7'
 services:
-  database:
-    container_name: db_arriendos_container
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
     restart: always
-    image: mysql:5.7  #mysql:5.7
     environment:
-      MYSQL_DATABASE: 'db_arriendos'              # name of database
-      MYSQL_USER: 'edward'                # sample is the name of user
-      MYSQL_PASSWORD: 'admin'          # password for sample user
-      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db_arriendos
+      MYSQL_USER: edward
+      MYSQL_PASSWORD: cftgb123
     ports:
       - "3306:3306"
     volumes:
-      - arriendos_vl:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+
 volumes:
-  arriendos_vl:
-    driver: local
+  mysql_data:
